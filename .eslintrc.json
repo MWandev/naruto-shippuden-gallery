@@ -1,0 +1,27 @@
+{
+  "extends": [
+    "semistandard", 
+    "plugin:typescript-eslint/recommended",
+    "plugin:astro/recommended",
+    "plugin:astro/jsx-a11y-recommended"
+  ],
+  "parser": "@typescript-eslint/parser",
+  "plugins": ["@typescript-eslint"],
+  "rules": {
+    "quotes": ["error", "single", { "avoidEscape": true }]
+  },
+  "overrides": [
+    {
+      "files": ["*.astro"], 
+      "parserOptions": {
+        "parser": "@typescript-eslint/parser",
+        "extraFileExtensions": [".astro"],
+        "sourceType": "module"
+      },
+      "rules": {
+        "quotes": ["error", "single", { "avoidEscape": true }], 
+        "astro/html-quotes": ["error", "double"]
+      }
+    }
+  ]
+}

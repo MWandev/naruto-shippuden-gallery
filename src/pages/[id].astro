@@ -1,0 +1,81 @@
+---
+import type { GetStaticPaths } from "astro";
+import CardCharacter from "../components/CardCharacter.astro";
+import type { IAPIDateBayo } from "../types/character";
+import Layout from "../layouts/Layout.astro";
+import Pagination from "../components/Pagination.astro";
+import "../styles/global.css";
+
+export const getStaticPaths = (async () => {
+  async function getCharacters(page: number) {
+    const URLbase = "https://dattebayo-api.onrender.com";
+    const response = (await fetch(`${URLbase}/characters?page=${page}`).then(
+      (res) => res.json(),
+    )) as IAPIDateBayo;
+
+    return response.characters;
+  }
+
+  async function getPages() {
+    const pages = await Promise.all(
+      Array(100)
+        .fill(0)
+        .map(async (_, i) => {
+          const characters = await getCharacters(i + 1);
+
+          return {
+            params: {
+              id: i + 1,
+            },
+            props: {
+              characters,
+            },
+          };
+        }),
+    );
+
+    return pages;
+  }
+
+  const pages = await getPages();
+
+  return pages;
+}) satisfies GetStaticPaths;
+
+const { id } = Astro.params;
+const { characters } = Astro.props;
+---
+
+<Layout title={`Página ${id}`} pageNumber={Number(id)}>
+  <article
+    class="grid grid-cols-[repeat(auto-fit,minmax(200px,1fr))] gap-4 mt-4"
+  >
+    {
+      characters.map((character) => {
+        const optionsSex = {
+          Male: "Masculino",
+          Female: "Femenino",
+        };
+
+        const {
+          name,
+          images,
+          personal: { clan, sex, age },
+        } = character;
+        const sexTranslated = optionsSex[sex] ?? "Desconocido";
+        const ageFiltered = age?.["Part II"] ?? "Desconocido";
+        const clanFiltered = clan ?? "Desconocido";
+
+        return (
+          <CardCharacter
+            name={name}
+            images={images}
+            clan={clanFiltered}
+            sex={sexTranslated}
+            age={ageFiltered}
+          />
+        );
+      })
+    }
+  </article>
+</Layout>

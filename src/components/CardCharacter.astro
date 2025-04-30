@@ -1,0 +1,33 @@
+---
+import type { ICharacter } from "../types/character";
+
+interface Props extends Omit<ICharacter, "personal" | "id"> {
+  clan: string;
+  sex: string;
+  age: string;
+}
+
+const { name, images, clan, sex, age } = Astro.props;
+const recentImage = images?.length !== 0 ? images![images!.length - 1] : "";
+
+const ageSplit = age.split("–");
+const agePart2 = ageSplit[ageSplit.length - 1];
+---
+
+<article
+  class="max-w-96 min-h-72 bg-gradient-to-br from-red-700 to-yellow-400 text-black rounded-2xl cursor-pointer overflow-hidden hover:scale-105 transition-transform duration-300"
+>
+  <img class="w-full aspect-4/3" src={recentImage} alt={name} />
+  <div class="flex flex-col px-3 pt-2 pb-5">
+    <h2 class="font-njNaruto">{name}</h2>
+    <p>
+      <span class="font-semibold">clan: </span><span>{clan}</span>
+    </p>
+    <p>
+      <span class="font-semibold">sex: </span><span>{sex}</span>
+    </p>
+    <p>
+      <span class="font-semibold">age: </span><span>{agePart2}</span>
+    </p>
+  </div>
+</article>

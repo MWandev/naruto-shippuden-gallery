@@ -1,0 +1,42 @@
+---
+import Nav from "../components/Nav.astro";
+import Footer from "../components/Footer.astro";
+import Search from "../components/Search.astro";
+import Pagination from "../components/Pagination.astro";
+
+interface Props {
+  title: string;
+  pageNumber?: number;
+}
+
+const { title, pageNumber = 1 }: Props = Astro.props;
+---
+
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>{title}</title>
+  </head>
+  <body class="px-10">
+    <header class="w-80vw max-w-3xl mx-auto">
+      <Nav />
+      <img
+        class="max-w-52 mx-auto mt-10"
+        src="/assets/LogoNarutoShippuden.svg"
+        alt="Logo de Naruto Shippuden"
+        class="w-full max-w-xs"
+      />
+    </header>
+    <main class="max-w-3xl mx-auto flex flex-col gap-6 mt-14">
+      <section>
+        <Search />
+      </section>
+      <slot />
+      <section class="flex flex-col gap-10">
+        <Pagination pageNumber={pageNumber} />
+      </section>
+    </main>
+    <Footer />
+  </body>
+</html>

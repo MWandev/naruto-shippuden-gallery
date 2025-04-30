@@ -1,0 +1,131 @@
+---
+interface Props {
+  pageNumber: number;
+}
+const { pageNumber }: Props = Astro.props;
+---
+
+<article class="relative">
+  <div class="max-w-2xl mx-auto overflow-hidden">
+    <ul
+      id="pagination"
+      class="flex justify-center gap-2 overflow-x-auto scroll-smooth whitespace-nowrap"
+    >
+      <li
+        id="previous-button"
+        class="w-12 flex justify-center items-center bg-secondary rounded-full cursor-pointer hover:bg-primary transition-all duration-200 overflow-hidden"
+      >
+        <img
+          class="p-3 hover:invert-special"
+          src="/assets/chevron_left.svg"
+          alt="Flecha izquierda"
+        />
+      </li>
+      <li
+        class="flex gap-2 bg-slate-300 rounded-2xl text-tertiary overflow-hidden"
+      >
+        {
+          Array.from({ length: 10 }, (_, i) => i + 1).map((pageID) => {
+            if (
+              pageNumber >= 7 &&
+              pageID < pageNumber + 1 &&
+              pageID > pageNumber - 2
+            ) {
+              // Mostrar números cercanos a la página actual cuando está al final
+              return (
+                <a
+                  class:list={[
+                    "page-number px-4 py-2 rounded-lg font-semibold hover:text-sky-500 transition-all duration-200 hover:shadow-sky-500 hover:shadow-sm",
+                    pageNumber === pageID ? "page-selected" : "",
+                  ]}
+                  href={`/${pageID}`}
+                  item-id={pageID}
+                >
+                  {pageID}
+                </a>
+              );
+            } else if (pageNumber < 7 && pageID < 6) {
+              return (
+                <a
+                  class:list={[
+                    "page-number px-4 py-2 rounded-lg font-semibold hover:text-sky-500 transition-all duration-200 hover:shadow-sky-500 hover:shadow-sm",
+                    pageNumber === pageID ? "page-selected" : "",
+                  ]}
+                  href={`/${pageID}`}
+                  item-id={pageID}
+                >
+                  {pageID}
+                </a>
+              );
+            }
+          })
+        }
+      </li>
+      <li
+        id="next-button"
+        class="w-12 flex justify-center items-center bg-secondary rounded-full cursor-pointer hover:bg-primary transition-all duration-200 overflow-hidden"
+      >
+        <img
+          class="p-3 hover:invert-special"
+          src="/assets/chevron_right.svg"
+          alt="Flecha izquierda"
+        />
+      </li>
+    </ul>
+  </div>
+</article>
+
+<style>
+  .page-selected {
+    color: #fff;
+    background-color: var(--color-primary);
+    box-shadow: 0 0 7px var(--color-primary);
+  }
+</style>
+
+<script>
+  const pagination = document.getElementById("pagination")!;
+  const nextButton = document.getElementById("next-button")!;
+  const previousButton = document.getElementById("previous-button")!;
+  let pageNumber: number =
+    Number(document.querySelector(".page-selected")!.getAttribute("item-id")) ??
+    1;
+
+  function scrollToPage(element: HTMLElement) {
+    const container = element.parentElement?.parentElement;
+    if (!container) return;
+
+    const containerWidth = container.offsetWidth;
+    const elementLeft = element.offsetLeft;
+    const elementWidth = element.offsetWidth;
+
+    const scrollPosition = elementLeft - containerWidth / 2 + elementWidth / 2;
+
+    container.scrollTo({
+      left: scrollPosition,
+      behavior: "smooth",
+    });
+  }
+
+  pagination.addEventListener("click", (e) => {
+    const target: HTMLAnchorElement | null = e.target as HTMLAnchorElement;
+    if (target?.classList.contains("page-number")) {
+      pagination
+        .querySelectorAll(".page-selected")
+        .forEach((el) => el.classList.remove("page-selected"));
+      target.classList.add("page-selected");
+      pageNumber = Number(target.getAttribute("item-id"));
+
+      // Desplazar suavemente al número de página seleccionado
+      scrollToPage(target);
+    }
+  });
+
+  previousButton.addEventListener("click", () => {
+    if (pageNumber > 1) window.location.href = `/${(pageNumber ?? 2) - 1}`;
+  });
+
+  nextButton.addEventListener("click", () => {
+    if (pageNumber < 100) window.location.href = `/${(pageNumber ?? 2) + 1}`;
+  });
+</script>

@@ -1,0 +1,29 @@
+@import 'tailwindcss';
+
+:root {
+  color-scheme: dark;
+  color: #fff;
+  background-color: #000;
+}
+
+@theme {
+  --font-njNaruto: 'njNaruto', sans-serif;
+  --color-primary: var(--color-sky-500);
+  --color-secondary: var(--color-slate-300);
+  --color-tertiary: var(--color-gray-600);
+}
+
+body {
+  width: 100%;
+  min-height: 100vh;
+  background-color: #000;
+}
+
+@font-face {
+  font-family: 'njNaruto';
+  src: url('../font/PermanentMarker-Regular.ttf') format('woff2');
+}
+
+@utility invert-special {
+  filter: invert(1) contrast(100);
+}
