@@ -33,12 +33,21 @@ Dentro del proyecto, encontrarás la siguiente estructura de carpetas y archivos
 │   └── favicon.svg
 ├── src/
 │   ├── components/            # Componentes reutilizables (e.g., Paginación, Filtros)
+    |-- fonts/                 # Archivos de fuentes
 │   ├── layouts/               # Diseños base para las páginas
 │   ├── pages/                 # Páginas principales del sitio
-│   │   ├── index.astro        # Página principal
-│   │   └── personajes.astro   # Página de personajes
-│   └── styles/                # Archivos de estilos
-└── [package.json](http://_vscodecontentref_/0)               # Configuración del proyecto
+│   |   ├── index.astro        # Página principal
+│   |   |── [id].astro         # Página de personajes
+|   |   └-- 404.astro          # Página de error 404
+│   |── styles/                # Archivos de estilos
+|   └-- types/                 # Archivos de tipos
+|── .eslintrc.cjs             # Configuración de ESLint
+|── .gitignore                 # Archivo de ignorados
+|── astro.config.mjs           # Configuración de Astro
+|── bun.lockb                  # Archivo de bloqueo de paquetes
+|── package.json               # Configuración del proyecto
+|-- README.md                  # Archivo de información
+└── tsconfig.json              # Configuración de TypeScript
 
 ## 🚀 Iniciar el proyecto 💻 En local
 #Sigue estos pasos para ejecutar el proyecto en tu entorno local:
