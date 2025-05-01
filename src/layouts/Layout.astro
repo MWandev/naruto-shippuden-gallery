@@ -34,7 +34,7 @@ const { title, pageNumber = 1 }: Props = Astro.props;
       </section>
       <slot />
       <section class="flex flex-col gap-10">
-        <Pagination pageNumber={pageNumber} />
+        <Pagination currentPage={pageNumber} totalPages={20} />
       </section>
     </main>
     <Footer />

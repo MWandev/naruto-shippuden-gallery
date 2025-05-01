@@ -27,3 +27,14 @@ body {
 @utility invert-special {
   filter: invert(1) contrast(100);
 }
+
+.page-selected {
+  color: #fff;
+  background-color: var(--color-primary);
+  box-shadow: 0 0 7px var(--color-primary);
+
+  &:hover {
+    background-color: var(--color-tertiary);
+    box-shadow: 0 0 7px var(--color-secondary);
+  }
+}
