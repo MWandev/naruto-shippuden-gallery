@@ -1,77 +1,48 @@
-# 🌟 Página de Personajes de Naruto Shippuden
+# Astro Starter Kit: Basics
 
-Este proyecto es una página web interactiva que muestra una lista completa de los personajes de **Naruto Shippuden**, junto con toda su información relevante. Incluye funcionalidades de **paginación** y **filtrado de búsqueda** para facilitar la navegación y encontrar personajes específicos de manera rápida y sencilla. Diseñado para los fans del anime, con un enfoque en la usabilidad y un diseño moderno.
+```sh
+bun create astro@latest -- --template basics
+```
 
-## 🚀 Características
+[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/withastro/astro/tree/latest/examples/basics)
+[![Open with CodeSandbox](https://assets.codesandbox.io/github/button-edit-lime.svg)](https://codesandbox.io/p/sandbox/github/withastro/astro/tree/latest/examples/basics)
+[![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/withastro/astro?devcontainer_path=.devcontainer/basics/devcontainer.json)
 
-- 📜 **Lista completa de personajes**: Explora todos los personajes de Naruto Shippuden.
-- 🔍 **Filtrado de búsqueda**: Encuentra personajes fácilmente utilizando el buscador.
-- 📄 **Paginación dinámica**: Navega cómodamente entre las páginas de personajes.
-- 🎨 **Diseño moderno**: Interfaz atractiva y fácil de usar.
-- ⚡ **Desarrollado con Astro**: Aprovecha la velocidad y simplicidad de Astro para un rendimiento óptimo.
+> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
 
-## 🌐 Tecnologías Utilizadas
+![just-the-basics](https://github.com/withastro/astro/assets/2244813/a0a5533c-a856-4198-8470-2d67b1d7c554)
 
-* Astro: Framework para construir sitios web rápidos y modernos.
-* JavaScript/TypeScript: Para la lógica interactiva.
-* HTML/CSS: Para la estructura y el diseño.
-* Bun: Administrador de paquetes y servidor de desarrollo.
+## 🚀 Project Structure
 
-## 📷 Capturas de Pantalla
-
-![Captura de la página principal](public/assets/project-capture.png)
-
-
-## 📂 Estructura del Proyecto
-
-Dentro del proyecto, encontrarás la siguiente estructura de carpetas y archivos:
+Inside of your Astro project, you'll see the following folders and files:
 
 ```text
 /
 ├── public/
-│   ├── assets/                # Imágenes y recursos estáticos
 │   └── favicon.svg
 ├── src/
-│   ├── components/            # Componentes reutilizables (e.g., Paginación, Filtros)
-    |-- fonts/                 # Archivos de fuentes
-│   ├── layouts/               # Diseños base para las páginas
-│   ├── pages/                 # Páginas principales del sitio
-│   |   ├── index.astro        # Página principal
-│   |   |── [id].astro         # Página de personajes
-|   |   └-- 404.astro          # Página de error 404
-│   |── styles/                # Archivos de estilos
-|   └-- types/                 # Archivos de tipos
-|── .eslintrc.cjs             # Configuración de ESLint
-|── .gitignore                 # Archivo de ignorados
-|── astro.config.mjs           # Configuración de Astro
-|── bun.lockb                  # Archivo de bloqueo de paquetes
-|── package.json               # Configuración del proyecto
-|-- README.md                  # Archivo de información
-└── tsconfig.json              # Configuración de TypeScript
-
-## 🚀 Iniciar el proyecto 💻 En local
-#Sigue estos pasos para ejecutar el proyecto en tu entorno local:
-
-
-1. Clona el repositorio:
-
-```bash
-git clone [https://github.com/MWandev/naruto-shippuden-gallery.git](https://github.com/MWandev/naruto-shippuden-gallery.git)
-cd naruto-shippuden-gallery
+│   ├── layouts/
+│   │   └── Layout.astro
+│   └── pages/
+│       └── index.astro
+└── package.json
 ```
 
-2. Instala las dependencias:
+To learn more about the folder structure of an Astro project, refer to [our guide on project structure](https://docs.astro.build/en/basics/project-structure/).
 
-```bash
-bun install
-// o
-pnpm install
-```
+## 🧞 Commands
 
-3. Inicia el entorno de desarrollo:
+All commands are run from the root of the project, from a terminal:
 
-```bash
-bun dev
-// o
-pnpm dev
-```
+| Command                   | Action                                           |
+| :------------------------ | :----------------------------------------------- |
+| `bun install`             | Installs dependencies                            |
+| `bun dev`             | Starts local dev server at `localhost:4321`      |
+| `bun build`           | Build your production site to `./dist/`          |
+| `bun preview`         | Preview your build locally, before deploying     |
+| `bun astro ...`       | Run CLI commands like `astro add`, `astro check` |
+| `bun astro -- --help` | Get help using the Astro CLI                     |
+
+## 👀 Want to learn more?
+
+Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).

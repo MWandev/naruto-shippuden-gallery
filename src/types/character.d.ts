@@ -1,14 +1,16 @@
 export interface ICharacter {
   id: number;
   name: string;
-  images?: string[];
-  personal: {
-    sex: "Male" | "Female";
-    age: {
-      "Part II": string;
-    },
-    clan: string;
-  }
+  imagen: string;
+  sexo: "Femenino" | "Masculino" | "Desconocido";
+  edad: number;
+  ocupacion: string;
+  clan: string;
+  debut: string;
+  estado: string;
+  naturalezaTipo: string;
+  clasificacion: string;
+  familia: string;
 }
 
 export interface IAPIDateBayo {

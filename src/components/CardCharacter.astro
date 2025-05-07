@@ -1,33 +1,79 @@
 ---
-import type { ICharacter } from "../types/character";
-
-interface Props extends Omit<ICharacter, "personal" | "id"> {
+interface Props {
+  id: number;
+  name: string;
+  imagen: string;
+  sexo: string;
+  edad: number;
+  ocupacion: string;
   clan: string;
-  sex: string;
-  age: string;
+  debut: string;
+  estado: string;
+  naturalezaTipo: string;
+  clasificacion: string;
+  familia: string;
 }
 
-const { name, images, clan, sex, age } = Astro.props;
-const recentImage = images?.length !== 0 ? images![images!.length - 1] : "";
-
-const ageSplit = age.split("–");
-const agePart2 = ageSplit[ageSplit.length - 1];
+const {
+  id,
+  name,
+  imagen,
+  sexo,
+  edad,
+  ocupacion,
+  clan,
+  debut,
+  estado,
+  naturalezaTipo,
+  clasificacion,
+  familia,
+} = Astro.props;
 ---
 
 <article
-  class="max-w-96 min-h-72 bg-gradient-to-br from-red-700 to-yellow-400 text-black rounded-2xl cursor-pointer overflow-hidden hover:scale-105 transition-transform duration-300"
+  class="relative max-w-96 min-h-72 bg-zinc-900 rounded-2xl cursor-pointer overflow-hidden hover:scale-105 transition-transform duration-300"
+  data-name={name}
+  data-sexo={sexo}
+  data-clan={clan}
+  data-edad={edad}
 >
-  <img class="w-full aspect-4/3" src={recentImage} alt={name} />
+  <img class="w-full aspect-4/3" src={imagen} alt={name} />
+  <span
+    class="absolute right-2 top-2 bg-zinc-900 text-zinc-300 rounded-full px-2 py-1 text-xs font-bold select-none"
+    >{estado}</span
+  >
   <div class="flex flex-col px-3 pt-2 pb-5">
-    <h2 class="font-njNaruto">{name}</h2>
-    <p>
-      <span class="font-semibold">clan: </span><span>{clan}</span>
-    </p>
-    <p>
-      <span class="font-semibold">sex: </span><span>{sex}</span>
-    </p>
-    <p>
-      <span class="font-semibold">age: </span><span>{agePart2}</span>
-    </p>
+    <h2 class="font-segoe font-bold text-zinc-300">{name}</h2>
+    <h5 class="text-orange-400 text-sm font-semibold">{ocupacion}</h5>
+    <div class="mt-2 grid grid-cols-2 gap-2">
+      <p class="flex flex-col">
+        <span class="text-zinc-400">age </span><span
+          class="text-zinc-300 font-semibold">{edad}</span
+        >
+      </p>
+      <p class="flex flex-col">
+        <span class="text-zinc-400">sex </span><span
+          class:list={[
+            "font-semibold",
+            sexo === "Masculino"
+              ? "text-blue-400"
+              : sexo === "Femenino"
+                ? "text-pink-400"
+                : "text-zinc-300",
+          ]}>{sexo}</span
+        >
+      </p>
+      <p class="flex flex-col gap-0.5">
+        <span class="text-zinc-400">clan </span><span
+          class="w-fit bg-zinc-800 px-2 rounded-full border-l-2 border-l-amber-400 text-zinc-300 font-semibold"
+          >{clan}</span
+        >
+      </p>
+      <p class="flex flex-col">
+        <span class="text-zinc-400">clasificacion </span><span
+          class="text-zinc-300 font-semibold">{clasificacion}</span
+        >
+      </p>
+    </div>
   </div>
 </article>

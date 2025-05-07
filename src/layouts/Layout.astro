@@ -23,18 +23,15 @@ const { title, pageNumber = 1 }: Props = Astro.props;
       <Nav />
       <img
         class="max-w-52 mx-auto mt-10"
-        src="/assets/LogoNarutoShippuden.svg"
+        src="/LogoNarutoShippuden.svg"
         alt="Logo de Naruto Shippuden"
         class="w-full max-w-xs"
       />
     </header>
     <main class="max-w-3xl mx-auto flex flex-col gap-6 mt-14">
-      <section>
-        <Search />
-      </section>
       <slot />
       <section class="flex flex-col gap-10">
-        <Pagination currentPage={pageNumber} totalPages={20} />
+        <Pagination pageNumber={pageNumber} />
       </section>
     </main>
     <Footer />

@@ -7,7 +7,7 @@
 }
 
 @theme {
-  --font-njNaruto: 'njNaruto', sans-serif;
+  --font-segoe:  'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   --color-primary: var(--color-sky-500);
   --color-secondary: var(--color-slate-300);
   --color-tertiary: var(--color-gray-600);
@@ -19,22 +19,6 @@ body {
   background-color: #000;
 }
 
-@font-face {
-  font-family: 'njNaruto';
-  src: url('../font/PermanentMarker-Regular.ttf') format('woff2');
-}
-
 @utility invert-special {
   filter: invert(1) contrast(100);
-}
-
-.page-selected {
-  color: #fff;
-  background-color: var(--color-primary);
-  box-shadow: 0 0 7px var(--color-primary);
-
-  &:hover {
-    background-color: var(--color-tertiary);
-    box-shadow: 0 0 7px var(--color-secondary);
-  }
 }
