@@ -1,0 +1,61 @@
+---
+
+---
+
+<div
+  id="filteredCharacters"
+  class="grid grid-cols-[repeat(auto-fit,minmax(200px,1fr))] gap-4 mt-4"
+>
+</div>
+
+<script>
+  import type { ICharacter } from "../types/character";
+
+  const filteredContainer = document.getElementById("filteredCharacters")!;
+  if (filteredContainer) {
+    filteredContainer.innerHTML = "";
+  }
+
+  document.addEventListener("charactersFiltered", ((event: CustomEvent) => {
+    const { characters } = event.detail;
+
+    if (filteredContainer) {
+      filteredContainer.innerHTML = characters
+        .map((character: ICharacter) => {
+          const colorSex =
+            character.sexo === "Masculino"
+              ? "text-blue-400"
+              : character.sexo === "Femenino"
+                ? "text-pink-400"
+                : "text-zinc-300";
+
+          return `
+            <div class="relative max-w-96 min-h-72 bg-zinc-900 rounded-2xl cursor-pointer overflow-hidden hover:scale-105 transition-transform duration-300">
+              <img class="w-full aspect-4/3" src="${character.imagen}" alt="${character.name}" />
+              <span class="absolute right-2 top-2 bg-zinc-900 text-zinc-300 rounded-full px-2 py-1 text-xs font-bold select-none">${character.estado}</span>
+              <div class="flex flex-col px-3 pt-2 pb-5">
+                <h2 class="font-segoe font-bold text-zinc-300">${character.name}</h2>
+                <h5 class="text-orange-400 text-sm font-semibold">${character.ocupacion}</h5>
+                <div class="mt-2 grid grid-cols-2 gap-2">
+                  <p class="flex flex-col">
+                    <span class="text-zinc-400">age </span><span class="text-zinc-300 font-semibold">${character.edad}</span>
+                  </p>
+                  <p class="flex flex-col">
+                    <span class="text-zinc-400">sex </span><span class="font-semibold ${colorSex}">${character.sexo}</span>
+                  </p>
+                  <p class="flex flex-col gap-0.5">
+                    <span class="text-zinc-400">clan </span><span class="w-fit bg-zinc-800 px-2 rounded-full border-l-2 border-l-amber-400 text-zinc-300 font-semibold">${character.clan}</span>
+                  </p>
+                  <p class="flex flex-col">
+                    <span class="text-zinc-400">clasificacion </span><span class="text-zinc-300 font-semibold">${character.clasificacion}</span>
+                  </p>
+                </div>
+              </div>
+            </div>
+            </div>
+          `;
+        })
+        .join("");
+    }
+  }) as EventListener);
+</script>

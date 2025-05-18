@@ -1,0 +1,84 @@
+---
+import type { GetStaticPaths } from "astro";
+import CardCharacter from "../components/CardCharacter.astro";
+import type { ICharacter } from "../types/character";
+import Layout from "../layouts/Layout.astro";
+import Search from "../components/Search.astro";
+import CardsCharacterFiltered from "../components/CardsCharacterFiltered.astro";
+import db from "../../../backend/db/characters";
+import "../styles/global.css";
+
+export const getStaticPaths = (async () => {
+  try {
+    const totalCharacters = await db.get(
+      "SELECT COUNT(*) as count FROM characters",
+    );
+    const itemsPerPage = 21;
+    const pages = Math.ceil(totalCharacters.count / itemsPerPage);
+
+    const characters = await Promise.all(
+      Array.from({ length: pages }, async (_, i) => {
+        const offset = (i + 1) * itemsPerPage;
+        const characters: ICharacter[] = await db.all(
+          "SELECT * FROM characters LIMIT ? OFFSET ?",
+          itemsPerPage,
+          offset,
+        );
+
+        return {
+          params: {
+            id: i + 2,
+          },
+          props: { characters },
+        };
+      }),
+    );
+
+    return characters;
+  } catch (error) {
+    console.error("Error generating static paths:", error);
+    return [];
+  }
+}) satisfies GetStaticPaths;
+
+const { id } = Astro.params;
+const { characters } = Astro.props;
+---
+
+<Layout title={`Página ${id}`} pageNumber={Number(id)}>
+  <Search />
+  <CardsCharacterFiltered />
+  <section
+    class="grid grid-cols-[repeat(auto-fit,minmax(200px,1fr))] gap-4 mt-4"
+    id="allCharacters"
+  >
+    {
+      characters.map((character) => (
+        <CardCharacter
+          id={id}
+          name={character.name}
+          imagen={character.imagen}
+          sexo={character.sexo}
+          edad={character.edad}
+          ocupacion={character.ocupacion}
+          clan={character.clan}
+          debut={character.debut}
+          estado={character.estado}
+          naturalezaTipo={character.naturalezaTipo}
+          clasificacion={character.clasificacion}
+          familia={character.familia}
+        />
+      ))
+    }
+  </section>
+</Layout>
+
+<script>
+  document.addEventListener("charactersFiltered", ((event: CustomEvent) => {
+    const allCharacters = document.getElementById("allCharacters");
+    if (allCharacters) {
+      allCharacters.style.display =
+        event.detail.characters.length > 0 ? "none" : "grid";
+    }
+  }) as EventListener);
+</script>

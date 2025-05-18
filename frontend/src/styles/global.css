@@ -11,7 +11,7 @@
   --color-primary: var(--color-sky-500);
   --color-secondary: var(--color-slate-300);
   --color-tertiary: var(--color-gray-600);
-}
+} 
 
 body {
   width: 100%;
@@ -21,4 +21,4 @@ body {
 
 @utility invert-special {
   filter: invert(1) contrast(100);
-}
+} 

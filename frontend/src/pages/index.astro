@@ -1,0 +1,32 @@
+---
+import "../styles/global.css";
+import Layout from "../layouts/Layout.astro";
+import db from "../../../backend/db/characters";
+import Search from "../components/Search.astro";
+import CardCharacter from "../components/CardCharacter.astro";
+import CardsCharacterFiltered from "../components/CardsCharacterFiltered.astro";
+
+const characters = await db.all("SELECT * FROM characters LIMIT 21");
+---
+
+<Layout title={`Página de inicio`}>
+  <Search />
+  <CardsCharacterFiltered />
+  <section
+    class="grid grid-cols-[repeat(auto-fit,minmax(200px,1fr))] gap-4 mt-4"
+    id="allCharacters"
+  >
+    {characters.map((character) => <CardCharacter {...character} />)}
+  </section>
+</Layout>
+
+<script>
+  const allCharacters = document.getElementById("allCharacters");
+
+  document.addEventListener("charactersFiltered", ((event: CustomEvent) => {
+    if (allCharacters) {
+      allCharacters.style.display =
+        event.detail.characters.length > 0 ? "none" : "grid";
+    }
+  }) as EventListener);
+</script>

@@ -14,6 +14,7 @@ interface Props {
   familia: string;
 }
 
+const character = Astro.props;
 const {
   id,
   name,
@@ -27,15 +28,12 @@ const {
   naturalezaTipo,
   clasificacion,
   familia,
-} = Astro.props;
+} = character;
 ---
 
 <article
   class="relative max-w-96 min-h-72 bg-zinc-900 rounded-2xl cursor-pointer overflow-hidden hover:scale-105 transition-transform duration-300"
-  data-name={name}
-  data-sexo={sexo}
-  data-clan={clan}
-  data-edad={edad}
+  data-character={JSON.stringify(character)}
 >
   <img class="w-full aspect-4/3" src={imagen} alt={name} />
   <span
@@ -66,12 +64,13 @@ const {
       <p class="flex flex-col gap-0.5">
         <span class="text-zinc-400">clan </span><span
           class="w-fit bg-zinc-800 px-2 rounded-full border-l-2 border-l-amber-400 text-zinc-300 font-semibold"
-          >{clan}</span
+          >{clan ?? "Desconocido"}</span
         >
       </p>
       <p class="flex flex-col">
         <span class="text-zinc-400">clasificacion </span><span
-          class="text-zinc-300 font-semibold">{clasificacion}</span
+          class="text-zinc-300 font-semibold"
+          >{clasificacion ?? "Desconocido"}</span
         >
       </p>
     </div>
