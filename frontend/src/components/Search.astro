@@ -1,0 +1,99 @@
+---
+
+---
+
+<div class="mx-auto w-full sm:max-w-xl flex flex-col sm:flex-row gap-2">
+  <select
+    id="filter"
+    name="filter"
+    class="bg-sky-500 px-4 py-2 rounded-lg cursor-pointer"
+  >
+    <option value="todos">Todos</option>
+    <option value="Vivo">Vivo</option>
+    <option value="Muerto">Muerto</option>
+    <option value="Masculino">Masculino</option>
+    <option value="Femenino">Femenino</option>
+  </select>
+  <div class="w-full relative">
+    <input
+      id="searchInput"
+      type="text"
+      name="search"
+      class="w-full bg-gray-500 rounded-lg px-4 py-2 text-white"
+      placeholder="Buscar personajes"
+    />
+    <span
+      id="msgNoResults"
+      class="w-max absolute top-10 left-0 hidden text-red-400"
+      >No hay resultados con esas caracteristicas</span
+    >
+  </div>
+</div>
+
+<script>
+  const filter = document.getElementById("filter") as HTMLSelectElement;
+  const msgNoResults = document.getElementById("msgNoResults")!;
+  const searchInput = document.getElementById(
+    "searchInput",
+  ) as HTMLInputElement;
+  let filterValue = filter.value;
+  let temporizadorBusqueda: NodeJS.Timeout;
+  const DELAY_SEARCH = 500;
+
+  filter?.addEventListener("change", () => {
+    filterValue = filter.value;
+    searchInput.focus();
+    fetchSearch();
+  });
+
+  searchInput?.addEventListener("input", fetchSearch);
+
+  function fetchSearch() {
+    if (temporizadorBusqueda) {
+      clearTimeout(temporizadorBusqueda);
+    }
+
+    if (searchInput.value === "") {
+      msgNoResults.classList.add("hidden");
+    }
+
+    temporizadorBusqueda = setTimeout(async () => {
+      try {
+        if (searchInput.value === "" && filterValue === "todos") {
+          const event = new CustomEvent("charactersFiltered", {
+            detail: { characters: [] },
+          });
+          document.dispatchEvent(event);
+          return;
+        }
+
+        const result = await fetch(
+          `http://localhost:3000/search?search=${searchInput.value}&filter=${filterValue}`,
+        );
+
+        if (!result.ok) {
+          throw new Error(`HTTP error! status: ${result.status}`);
+        }
+
+        const characters = await result.json();
+
+        if (characters.length === 0) {
+          msgNoResults.classList.remove("hidden");
+        } else {
+          msgNoResults.classList.add("hidden");
+        }
+
+        const event = new CustomEvent("charactersFiltered", {
+          detail: { characters },
+        });
+        document.dispatchEvent(event);
+      } catch (error) {
+        console.error("Error en la búsqueda:", error);
+        const event = new CustomEvent("charactersFiltered", {
+          detail: { characters: [] },
+        });
+        document.dispatchEvent(event);
+      }
+    }, DELAY_SEARCH);
+  }
+</script>

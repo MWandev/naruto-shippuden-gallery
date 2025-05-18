@@ -12,7 +12,7 @@ const { pageNumber }: Props = Astro.props;
   >
     <li
       id="previous-button"
-      class="w-12 flex justify-center items-center bg-secondary rounded-full cursor-pointer hover:bg-primary transition-all duration-200 overflow-hidden"
+      class="disabled w-12 flex justify-center items-center bg-secondary rounded-full cursor-pointer hover:bg-primary transition-all duration-200 overflow-hidden"
     >
       <img
         class="p-3 hover:invert-special"
@@ -31,7 +31,7 @@ const { pageNumber }: Props = Astro.props;
                 "page-number px-4 py-2 rounded-lg font-semibold hover:text-sky-500 transition-all duration-200 hover:shadow-sky-500 hover:shadow-sm",
                 pageNumber === pageID ? "page-selected" : "",
               ]}
-              href={`/${pageID}`}
+              href={pageID === 1 ? "/" : `/${pageID}`}
               item-id={pageID}
             >
               {pageID}
@@ -76,17 +76,19 @@ const { pageNumber }: Props = Astro.props;
         .querySelectorAll(".page-selected")
         .forEach((el) => el.classList.remove("page-selected"));
       target.classList.add("page-selected");
-      Number(target.getAttribute("item-id"));
     }
   });
 
   previousButton.addEventListener("click", () => {
-    console.log(pageNumber);
-    if (pageNumber > 1) window.location.href = `/${(pageNumber ?? 2) - 1}`;
+    if (pageNumber - 1 === 0) return;
+    if (pageNumber === 1) {
+      window.location.href = "/";
+    } else if (pageNumber > 1) {
+      window.location.href = `/${(pageNumber ?? 2) - 1}`;
+    }
   });
 
   nextButton.addEventListener("click", () => {
-    console.log(pageNumber);
     if (pageNumber < 100) window.location.href = `/${(pageNumber ?? 2) + 1}`;
   });
 </script>

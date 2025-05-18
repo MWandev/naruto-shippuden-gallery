@@ -1,48 +1,116 @@
-# Astro Starter Kit: Basics
+# Galería de Personajes - Naruto Shippuden
 
-```sh
-bun create astro@latest -- --template basics
+Una aplicación web moderna que muestra una galería interactiva de personajes de Naruto Shippuden, permitiendo a los usuarios explorar, buscar y ver detalles de sus personajes favoritos.
+
+## captura de pantalla
+![Naruto Shippuden Gallery](./frontend/public/new%20interface.png)
+
+## 🚀 Funcionalidades
+- **Navegación**: Navegar por la galería de personajes
+- **Búsqueda y Filtrado**: Buscar y filtrar personajes por su nombre, estado y genero
+<!-- - **Detalles**: Ver detalles de un personaje, incluyendo su historia, habilidades y equipo -->
+- **Paginación**: Navegar por las páginas de la galería
+
+## 🏗️ Estructura del Proyecto
+
+```
+naruto-shippuden-gallery/
+├── frontend/               # Aplicación frontend en Astro
+│   ├── src/
+│   │   ├── components/    # Componentes reutilizables
+│   │   ├── layouts/       # Layouts de la aplicación
+│   │   ├── pages/         # Páginas de la aplicación
+│   │   ├── styles/        # Estilos globales
+│   │   └── types/         # Definiciones de tipos TypeScript
+│   └── public/            # Archivos estáticos
+│
+└── backend/               # API REST en Node.js/Express
+    ├── src/
+    │   ├── db/           # Configuración y modelos de base de datos
+    │   └── types/        # Definiciones de tipos TypeScript
+    └── config/           # Configuraciones del servidor
 ```
 
-[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/withastro/astro/tree/latest/examples/basics)
-[![Open with CodeSandbox](https://assets.codesandbox.io/github/button-edit-lime.svg)](https://codesandbox.io/p/sandbox/github/withastro/astro/tree/latest/examples/basics)
-[![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/withastro/astro?devcontainer_path=.devcontainer/basics/devcontainer.json)
+## 🎨 Arquitectura
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+La aplicación sigue una arquitectura cliente-servidor:
 
-![just-the-basics](https://github.com/withastro/astro/assets/2244813/a0a5533c-a856-4198-8470-2d67b1d7c554)
+- **Frontend**: Desarrollado con Astro.js, proporcionando una experiencia de usuario rápida y moderna
+- **Backend**: API REST construida con Node.js y Express
+- **Base de Datos**: SQLite para almacenamiento de datos de personajes
 
-## 🚀 Project Structure
+## 🛠️ Tecnologías Utilizadas
 
-Inside of your Astro project, you'll see the following folders and files:
+### Frontend
+- Astro.js
+- TypeScript
+- Tailwind CSS
+- ESLint
+- Bun (gestor de paquetes)
 
-```text
-/
-├── public/
-│   └── favicon.svg
-├── src/
-│   ├── layouts/
-│   │   └── Layout.astro
-│   └── pages/
-│       └── index.astro
-└── package.json
+### Backend
+- Node.js
+- Express
+- TypeScript
+- SQLite
+- Bun (gestor de paquetes)
+
+## 🚀 Cómo Ejecutar el Proyecto
+
+### Prerrequisitos
+- Node.js (v18 o superior)
+- Bun (gestor de paquetes) o pnpm (gestor de paquetes)
+
+### Instalación
+
+1. Clonar el repositorio:
+```bash
+git clone https://github.com/tu-usuario/naruto-shippuden-gallery.git
+cd naruto-shippuden-gallery
 ```
 
-To learn more about the folder structure of an Astro project, refer to [our guide on project structure](https://docs.astro.build/en/basics/project-structure/).
+2. Instalar dependencias del frontend:
+```bash
+cd frontend
+bun install
+```
 
-## 🧞 Commands
+3. Instalar dependencias del backend:
+```bash
+cd ../backend
+bun install
+```
 
-All commands are run from the root of the project, from a terminal:
+### Desarrollo
 
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `bun install`             | Installs dependencies                            |
-| `bun dev`             | Starts local dev server at `localhost:4321`      |
-| `bun build`           | Build your production site to `./dist/`          |
-| `bun preview`         | Preview your build locally, before deploying     |
-| `bun astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `bun astro -- --help` | Get help using the Astro CLI                     |
+1. Iniciar el servidor backend:
+```bash
+cd backend
+bun run dev
+```
 
-## 👀 Want to learn more?
+2. En otra terminal, iniciar el frontend:
+```bash
+cd frontend
+bun run dev
+```
 
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+3. Abrir el navegador en `http://localhost:4321`
+
+### Construcción para Producción
+
+1. Construir el frontend:
+```bash
+cd frontend
+bun run build
+```
+
+2. Construir el backend:
+```bash
+cd backend
+bun run build
+```
+
+## 📄 Licencia
+
+Este proyecto está bajo la Licencia MIT

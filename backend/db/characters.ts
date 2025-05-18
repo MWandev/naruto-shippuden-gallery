@@ -1,8 +1,13 @@
 import { open } from "sqlite";
 import sqlite3 from "sqlite3";
+import { fileURLToPath } from 'url';
+import { dirname, join } from 'path';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
 
 const db = await open({
-  filename: "./src/db/characters.db",
+  filename: join(__dirname, 'characters.db'),
   driver: sqlite3.Database
 });
 
