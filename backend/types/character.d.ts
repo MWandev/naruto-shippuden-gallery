@@ -14,7 +14,7 @@ export interface ICharacter {
 }
 
 export interface IAPIDateBayo {
-  characters: ICharacter[];
+  characters;
   currentPage: number;
   pageSize: number;
   total: number;

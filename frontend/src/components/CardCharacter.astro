@@ -62,12 +62,12 @@ const {
       <p class="flex flex-col gap-0.5">
         <span class="text-zinc-400">clan </span><span
           class="w-fit bg-zinc-800 px-2 rounded-full border-l-2 border-l-amber-400 text-zinc-300 font-semibold"
-          >{clan}</span
+          >{clan ?? 'Desconocido'}</span
         >
       </p>
       <p class="flex flex-col">
         <span class="text-zinc-400">clasificacion </span><span
-          class="text-zinc-300 font-semibold">{clasificacion}</span
+          class="text-zinc-300 font-semibold">{clasificacion ?? 'Desconocido'}</span
         >
       </p>
     </div>

@@ -1,21 +1,23 @@
-import { open } from "sqlite";
-import sqlite3 from "sqlite3";
-import { fileURLToPath } from 'url';
-import { dirname, join } from 'path';
+import path from 'node:path';
+import { fileURLToPath } from 'node:url';
+import sqlite3 from 'sqlite3';
+import {open} from 'sqlite'
 
 const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
+const __dirname = path.dirname(__filename); 
 
 const db = await open({
-  filename: join(__dirname, 'characters.db'),
+  filename: path.join(__dirname, 'characters.db'),
   driver: sqlite3.Database
 });
+
+db.run('UPDATE characters SET clasificacion=null WHERE id = 1035')
 
 db.exec(`
   CREATE TABLE IF NOT EXISTS characters (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     name TEXT NOT NULL,
-    imagen TEXT,
+    imagen TEXT,b
     sexo TEXT,
     edad INTEGER,
     ocupacion TEXT,
@@ -29,3 +31,4 @@ db.exec(`
 `)
 
 export default db;
+

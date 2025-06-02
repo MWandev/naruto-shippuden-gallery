@@ -11,7 +11,7 @@ const characters = await db.all("SELECT * FROM characters LIMIT 21");
 
 <Layout title={`Página de inicio`}>
   <Search />
-  <CardsCharacterFiltered />
+  <CardsCharacterFiltered /> 
   <article
     class="grid grid-cols-[repeat(auto-fit,minmax(200px,1fr))] gap-4 mt-4"
     id="allCharacters"

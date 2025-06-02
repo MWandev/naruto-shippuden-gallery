@@ -32,11 +32,6 @@ backend/.vscode/
 *.swp
 *.swo
 
-# Database
-*.db
-*.sqlite
-*.sqlite3
-
 # Logs
 logs/
 *.log
