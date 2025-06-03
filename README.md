@@ -5,17 +5,20 @@ Una aplicación web moderna que muestra una galería interactiva de personajes d
 ## captura de pantalla
 ![Naruto Shippuden Gallery](./frontend/public/new%20interface.png)
 
-## 🚀 Funcionalidades
-- **Navegación**: Navegar por la galería de personajes
-- **Búsqueda y Filtrado**: Buscar y filtrar personajes por su nombre, estado y genero
-<!-- - **Detalles**: Ver detalles de un personaje, incluyendo su historia, habilidades y equipo -->
-- **Paginación**: Navegar por las páginas de la galería
+## Características Principales
+- 🔍 Búsqueda en tiempo real de personajes
+- 🎯 Filtros por estado (Vivo/Muerto) y género
+- 📝 Detalles de personajes (habilidades, clasificacion, debut,...)
+- 📱 Diseño responsive
+- 🎨 Interfaz moderna y atractiva
+- ⚡ Rendimiento optimizado
+- 📊 Paginación
+**** 
 
-## 🏗️ Estructura del Proyecto
-
+## 🏗️ Estructura del **Proyecto**
 ```
 naruto-shippuden-gallery/
-├── frontend/               # Aplicación frontend en Astro
+├── frontend/              # Aplicación frontend en Astro
 │   ├── src/
 │   │   ├── components/    # Componentes reutilizables
 │   │   ├── layouts/       # Layouts de la aplicación
@@ -26,18 +29,28 @@ naruto-shippuden-gallery/
 │
 └── backend/               # API REST en Node.js/Express
     ├── src/
-    │   ├── db/           # Configuración y modelos de base de datos
-    │   └── types/        # Definiciones de tipos TypeScript
-    └── config/           # Configuraciones del servidor
+    │   ├── db/            # Configuración y modelos de base de datos
+    │   └── types/         # Definiciones de tipos TypeScript
+    |── index.ts           # Archivo principal del servidor
+    └── config/            # Configuraciones del servidor
 ```
 
 ## 🎨 Arquitectura
 
 La aplicación sigue una arquitectura cliente-servidor:
 
-- **Frontend**: Desarrollado con Astro.js, proporcionando una experiencia de usuario rápida y moderna
-- **Backend**: API REST construida con Node.js y Express
-- **Base de Datos**: SQLite para almacenamiento de datos de personajes
+- **Frontend**:
+- Desarrollado con Astro.js para un rendimiento óptimo
+- Componentes modulares y reutilizables
+- Estilos con Tailwind CSS
+- Sistema de paginación dinámico
+- Búsqueda y filtrado en tiempo real
+  
+- **Backend**:
+- API REST con Express.js
+- Base de datos SQLite para almacenamiento persistente
+- Endpoints optimizados para búsqueda y filtrado
+- CORS habilitado para comunicación con el frontend
 
 ## 🛠️ Tecnologías Utilizadas
 
@@ -62,7 +75,6 @@ La aplicación sigue una arquitectura cliente-servidor:
 - Bun (gestor de paquetes) o pnpm (gestor de paquetes)
 
 ### Instalación
-
 1. Clonar el repositorio:
 ```bash
 git clone https://github.com/tu-usuario/naruto-shippuden-gallery.git
@@ -82,7 +94,6 @@ bun install
 ```
 
 ### Desarrollo
-
 1. Iniciar el servidor backend:
 ```bash
 cd backend
@@ -98,7 +109,6 @@ bun run dev
 3. Abrir el navegador en `http://localhost:4321`
 
 ### Construcción para Producción
-
 1. Construir el frontend:
 ```bash
 cd frontend
@@ -112,5 +122,4 @@ bun run build
 ```
 
 ## 📄 Licencia
-
 Este proyecto está bajo la Licencia MIT

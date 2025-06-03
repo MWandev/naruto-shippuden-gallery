@@ -12,26 +12,16 @@ interface Props {
   naturalezaTipo: string;
   clasificacion: string;
   familia: string;
+  openModal: (character: any) => void;
 }
 
-const {
-  id,
-  name,
-  imagen,
-  sexo,
-  edad,
-  ocupacion,
-  clan,
-  debut,
-  estado,
-  naturalezaTipo,
-  clasificacion,
-  familia,
-} = Astro.props;
+const character = Astro.props;
+const { id, name, imagen, sexo, edad, ocupacion, clan, debut, estado, naturalezaTipo, clasificacion, familia } = character;
 ---
 
 <article
   class="relative max-w-96 min-h-72 bg-zinc-900 rounded-2xl cursor-pointer overflow-hidden hover:scale-105 transition-transform duration-300"
+  data-character={JSON.stringify(character)}
 >
   <img class="w-full aspect-4/3" src={imagen} alt={name} />
   <span

@@ -12,37 +12,128 @@ const characters = await db.all("SELECT * FROM characters LIMIT 21");
 <Layout title={`Página de inicio`}>
   <Search />
   <CardsCharacterFiltered />
-  <article
+  <section
     class="grid grid-cols-[repeat(auto-fit,minmax(200px,1fr))] gap-4 mt-4"
     id="allCharacters"
   >
-    {
-      characters.map((character) => (
-        <CardCharacter
-          id={character.id}
-          name={character.name}
-          imagen={character.imagen}
-          sexo={character.sexo}
-          edad={character.edad}
-          ocupacion={character.ocupacion}
-          clan={character.clan}
-          debut={character.debut}
-          estado={character.estado}
-          naturalezaTipo={character.naturalezaTipo}
-          clasificacion={character.clasificacion}
-          familia={character.familia}
-        />
-      ))
-    }
-  </article>
+    {characters.map((character) => <CardCharacter {...character} />)}
+  </section>
+
+  <dialog id="characterModal" class="w-2/4 m-auto p-5"></dialog>
 </Layout>
 
 <script>
+  const allCharacters = document.getElementById("allCharacters");
+  const modal = document.getElementById("characterModal") as HTMLDialogElement;
+
   document.addEventListener("charactersFiltered", ((event: CustomEvent) => {
-    const allCharacters = document.getElementById("allCharacters");
     if (allCharacters) {
       allCharacters.style.display =
         event.detail.characters.length > 0 ? "none" : "grid";
     }
   }) as EventListener);
+
+  allCharacters?.addEventListener("click", (event: MouseEvent) => {
+    const sectionCards = event.target as HTMLElement;
+    const {
+      id,
+      name,
+      imagen,
+      sexo,
+      edad,
+      ocupacion,
+      clan,
+      debut,
+      estado,
+      naturalezaTipo,
+      clasificacion,
+      familia,
+    } = JSON.parse(
+      sectionCards?.closest("article")?.getAttribute("data-character")!,
+    );
+    console.log(clasificacion);
+    modal.innerHTML = `
+        <header class="flex gap-10">
+          <section class="flex flex-col items-center">
+            <img src="https://static.wikia.nocookie.net/naruto/images/b/be/Tobirama_Senju.png" class="size-52 rounded-full object-cover">
+            <h2 class="font-segoe font-bold text-zinc-300">${name}</h2>
+          </section>
+          <section class="flex items-center">
+            <ul class="flex gap-10 text-semibold">
+              <div class="flex flex-col gap-3">
+                <li>Genero: <span class="text-sky-500 text-bold ">${sexo}</span></li>
+                <li>Edad: ${edad}</li>
+                <li>occupation ${ocupacion}</li>
+                <li>clan: ${clan}</li>
+              </div>
+              <div class="flex flex-col gap-3">
+                <li>Estado: <span class="text-red-600 text-bold">${estado}</span></li>
+                <li>debut: ${debut}</li>
+                <li class="flex">clasificación: <span>${clasificacion.map((c: string) => c + "<br>")}</span></li>
+              </div>
+            </ul>
+          </section>
+        </header>
+        <main class="flex gap-10 mt-6">
+          <section class="flex flex-col items-center gap-3 grow-2 border">
+            <h3 class="text-center font-bold text-3xl">Naturalezas de Chakra</h3>
+            <ul class="flex flex-col gap-3">
+              <li>
+                <p class="text-center">Chakra Elemental Basico</p>
+                <div class="flex gap-3  mt-1">
+                  <div class="w-25 h-30 bg-green-600  rounded-xl"></div>
+                  <div class="w-25 h-30 bg-green-600  rounded-xl"></div>
+                  <div class="w-25 h-30 bg-green-600  rounded-xl"></div>
+                </div>
+              </li>
+              <li>
+                <p class="text-center">Chakra Elemental Avanzado</p>
+                <div class="flex gap-3  mt-1">
+                  <div class="w-25 h-30 bg-green-600  rounded-xl"></div>
+                  <div class="w-25 h-30 bg-green-600  rounded-xl"></div>
+                  <div class="w-25 h-30 bg-green-600  rounded-xl"></div>
+                </div>
+              </li>
+              <li>
+                <p class="text-center">Yin y Yang del Chakra</p>
+                <div class="flex gap-3  mt-1">
+                  <div class="w-25 h-30 bg-green-600  rounded-xl"></div>
+                  <div class="w-25 h-30 bg-green-600  rounded-xl"></div>
+                  <div class="w-25 h-30 bg-green-600  rounded-xl"></div>
+                </div>
+              </li>
+            </ul>
+          </section>
+          <section class="flex flex-col items-center gap-3 grow-1 border">
+            <h3 class="text-center font-bold text-3xl">Familia</h3>
+            <ul class="flex flex-col gap-3">
+              <li class="">
+                <p class="text-center">Padres</p>
+                <div class="flex gap-3 mt-1">
+                  <div class="w-25 h-30 bg-purple-800 rounded-xl"></div>
+                  <div class="w-25 h-30 bg-purple-800 rounded-xl"></div>
+                </div>
+              </li>
+              <li class="">
+                <p class="text-center">Hermanos</p>
+                <div class="flex gap-3 mt-1">
+                  <div class="w-25 h-30 bg-purple-800 rounded-xl"></div>
+                  <div class="w-25 h-30 bg-purple-800 rounded-xl"></div>
+                </div>
+              </li>
+              <li class="">
+                <p class="text-center">Hijos</p>
+                <div class="flex gap-3 mt-1">
+                  <div class="w-25 h-30 bg-purple-800 rounded-xl"></div>
+                  <div class="w-25 h-30 bg-purple-800 rounded-xl"></div>
+                </div>
+              </li>
+            </ul>
+          </section>
+        </main>
+      </dialog>
+      `;
+
+    modal.showModal();
+  });
 </script>

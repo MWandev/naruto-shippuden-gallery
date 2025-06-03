@@ -48,7 +48,7 @@ const { characters } = Astro.props;
 <Layout title={`Página ${id}`} pageNumber={Number(id)}>
   <Search />
   <CardsCharacterFiltered />
-  <article
+  <section
     class="grid grid-cols-[repeat(auto-fit,minmax(200px,1fr))] gap-4 mt-4"
     id="allCharacters"
   >
@@ -70,7 +70,7 @@ const { characters } = Astro.props;
         />
       ))
     }
-  </article>
+  </section>
 </Layout>
 
 <script>
