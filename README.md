@@ -13,12 +13,11 @@ Una aplicación web moderna que muestra una galería interactiva de personajes d
 - 🎨 Interfaz moderna y atractiva
 - ⚡ Rendimiento optimizado
 - 📊 Paginación
-**** 
 
-## 🏗️ Estructura del **Proyecto**
+## 🏗️ Estructura del Proyecto
 ```
 naruto-shippuden-gallery/
-├── frontend/              # Aplicación frontend en Astro
+├── frontend/               # Aplicación frontend en Astro
 │   ├── src/
 │   │   ├── components/    # Componentes reutilizables
 │   │   ├── layouts/       # Layouts de la aplicación
@@ -32,7 +31,10 @@ naruto-shippuden-gallery/
     │   ├── db/            # Configuración y modelos de base de datos
     │   └── types/         # Definiciones de tipos TypeScript
     |── index.ts           # Archivo principal del servidor
-    └── config/            # Configuraciones del servidor
+    │── config/            # Configuraciones del servidor
+    │   ├── db/           # Configuración y modelos de base de datos
+    │   └── types/        # Definiciones de tipos TypeScript
+    └── config/           # Configuraciones del servidor
 ```
 
 ## 🎨 Arquitectura
@@ -51,6 +53,9 @@ La aplicación sigue una arquitectura cliente-servidor:
 - Base de datos SQLite para almacenamiento persistente
 - Endpoints optimizados para búsqueda y filtrado
 - CORS habilitado para comunicación con el frontend
+- **Frontend**: Desarrollado con Astro.js, proporcionando una experiencia de usuario rápida y moderna
+- **Backend**: API REST construida con Node.js y Express
+- **Base de Datos**: SQLite para almacenamiento de datos de personajes
 
 ## 🛠️ Tecnologías Utilizadas
 
@@ -75,6 +80,7 @@ La aplicación sigue una arquitectura cliente-servidor:
 - Bun (gestor de paquetes) o pnpm (gestor de paquetes)
 
 ### Instalación
+
 1. Clonar el repositorio:
 ```bash
 git clone https://github.com/tu-usuario/naruto-shippuden-gallery.git
@@ -120,6 +126,3 @@ bun run build
 cd backend
 bun run build
 ```
-
-## 📄 Licencia
-Este proyecto está bajo la Licencia MIT
