@@ -28,4 +28,9 @@ db.exec(`
   )
 `)
 
+db.exec(`
+  UPDATE characters
+  SET naturalezaTipo = REPLACE(naturalezaTipo, 'Lightning ', 'Lightning')
+`)
+
 export default db;

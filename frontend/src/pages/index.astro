@@ -19,7 +19,7 @@ const characters = await db.all("SELECT * FROM characters LIMIT 21");
     {characters.map((character) => <CardCharacter {...character} />)}
   </section>
 
-  <dialog id="characterModal" class="w-2/4 m-auto p-5"></dialog>
+  <dialog id="characterModal" class="w-2/4 m-auto"></dialog>
 </Layout>
 
 <script>
@@ -33,8 +33,17 @@ const characters = await db.all("SELECT * FROM characters LIMIT 21");
     }
   }) as EventListener);
 
+  modal.addEventListener("click", (event: MouseEvent) => {
+    if (event.target === modal) {
+      modal.close();
+      document.documentElement.classList.remove("overflow-hidden");
+    }
+  });
+
   allCharacters?.addEventListener("click", (event: MouseEvent) => {
     const sectionCards = event.target as HTMLElement;
+    const article = sectionCards?.closest("article");
+    if (!article) return;
     const {
       id,
       name,
@@ -48,63 +57,120 @@ const characters = await db.all("SELECT * FROM characters LIMIT 21");
       naturalezaTipo,
       clasificacion,
       familia,
-    } = JSON.parse(
-      sectionCards?.closest("article")?.getAttribute("data-character")!,
-    );
-    console.log(clasificacion);
+    } = JSON.parse(article.getAttribute("data-character")!);
+
+    // CHAKRA: [type, position x, position y]
+    // type 1 = Elemental Basico
+    // type 2 = Elemental Avanzado
+    // type 3 = Avanzado Yin Y Yang
+    enum CHAKRA_TYPES {
+      ELEMENTAL_BASICO = 1,
+      ELEMENTAL_AVANZADO = 2,
+      AVANZADO_YING_YANG = 3,
+    }
+
+    const CHAKRAS_POSITIONS_IMG: {
+      [key: string]: [CHAKRA_TYPES, number, number];
+    } = {
+      Lightning: [CHAKRA_TYPES.ELEMENTAL_BASICO, -56, -27],
+      Earth: [CHAKRA_TYPES.ELEMENTAL_BASICO, -125, -27],
+      Water: [CHAKRA_TYPES.ELEMENTAL_BASICO, -196, -27],
+      Wind: [CHAKRA_TYPES.ELEMENTAL_BASICO, -265, -27],
+      Fire: [CHAKRA_TYPES.ELEMENTAL_BASICO, -336, -27],
+      explosion: [CHAKRA_TYPES.ELEMENTAL_AVANZADO, -57, -130],
+      Crystal: [CHAKRA_TYPES.ELEMENTAL_AVANZADO, -127, -130],
+      Wood: [CHAKRA_TYPES.ELEMENTAL_AVANZADO, -197, -130],
+      Ice: [CHAKRA_TYPES.ELEMENTAL_AVANZADO, -268, -130],
+      Steel: [CHAKRA_TYPES.ELEMENTAL_AVANZADO, -338, -130],
+      Lava: [CHAKRA_TYPES.ELEMENTAL_AVANZADO, -24, -214],
+      Storm: [CHAKRA_TYPES.ELEMENTAL_AVANZADO, -94, -214],
+      Steam: [CHAKRA_TYPES.ELEMENTAL_AVANZADO, -165, -214],
+      Dust: [CHAKRA_TYPES.ELEMENTAL_AVANZADO, -234, -214],
+      Fast: [CHAKRA_TYPES.ELEMENTAL_AVANZADO, -305, -214],
+      Darkness: [CHAKRA_TYPES.ELEMENTAL_AVANZADO, -375, -214],
+      Yang: [CHAKRA_TYPES.AVANZADO_YING_YANG, -132, -327],
+      Ying: [CHAKRA_TYPES.AVANZADO_YING_YANG, -202, -327],
+      "Ying-Yang": [CHAKRA_TYPES.AVANZADO_YING_YANG, -273, -327],
+    };
+
+    let chakra_elemental = "";
+    let chakra_elemental_avanzado = "";
+    let chakra_yin_yang = "";
+
+    const TYPE_NATURE = JSON.parse(naturalezaTipo);
+
+    if (naturalezaTipo) {
+      TYPE_NATURE.map((type: string) => {
+        if (!CHAKRAS_POSITIONS_IMG[type]) return;
+        const [chakra, x, y] = CHAKRAS_POSITIONS_IMG[type];
+
+        if (chakra === CHAKRA_TYPES.ELEMENTAL_BASICO) {
+          chakra_elemental += `
+        <div class="w-20 h-20 overflow-hidden">
+          <img src='./chakra-elemental.jpeg' alt='chakra elemental básico'  class="h-[415px] object-cover" style="object-position: ${x}px ${y}px;">
+        </div>`;
+        } else if (chakra === CHAKRA_TYPES.ELEMENTAL_AVANZADO) {
+          chakra_elemental_avanzado += `
+        <div class="w-20 h-20 overflow-hidden">
+          <img src='./chakra-elemental.jpeg' alt='chakra elemental básico'  class="h-[415px] object-cover" style="object-position: ${x}px ${y}px;">
+        </div>`;
+        } else if (chakra === CHAKRA_TYPES.AVANZADO_YING_YANG) {
+          chakra_yin_yang += `
+        <div class="w-20 h-20 overflow-hidden">
+          <img src='./chakra-elemental.jpeg' alt='chakra elemental básico'  class="h-[415px] object-cover" style="object-position: ${x}px ${y}px;">
+        </div>`;
+        }
+      });
+    }
+
     modal.innerHTML = `
+      <div class="p-5">
         <header class="flex gap-10">
           <section class="flex flex-col items-center">
-            <img src="https://static.wikia.nocookie.net/naruto/images/b/be/Tobirama_Senju.png" class="size-52 rounded-full object-cover">
+            <img src="${imagen}" class="size-52 rounded-full object-cover">
             <h2 class="font-segoe font-bold text-zinc-300">${name}</h2>
           </section>
           <section class="flex items-center">
             <ul class="flex gap-10 text-semibold">
               <div class="flex flex-col gap-3">
-                <li>Genero: <span class="text-sky-500 text-bold ">${sexo}</span></li>
+                <li>Genero: <span class="text-bold ${sexo === "Masculino" ? "text-sky-500" : "text-pink-500"}">${sexo}</span></li>
                 <li>Edad: ${edad}</li>
                 <li>occupation ${ocupacion}</li>
                 <li>clan: ${clan}</li>
               </div>
               <div class="flex flex-col gap-3">
-                <li>Estado: <span class="text-red-600 text-bold">${estado}</span></li>
+                <li>Estado: <span class="text-bold ${estado === "Muerto" ? "text-red-600" : "text-sky-300"}">${estado}</span></li>
                 <li>debut: ${debut}</li>
-                <li class="flex">clasificación: <span>${clasificacion.map((c: string) => c + "<br>")}</span></li>
+                <li class="flex">clasificación: <span>clasification</span></li>
               </div>
             </ul>
           </section>
         </header>
         <main class="flex gap-10 mt-6">
-          <section class="flex flex-col items-center gap-3 grow-2 border">
+          <section class="flex flex-col items-center gap-3 grow-2">
             <h3 class="text-center font-bold text-3xl">Naturalezas de Chakra</h3>
             <ul class="flex flex-col gap-3">
               <li>
-                <p class="text-center">Chakra Elemental Basico</p>
-                <div class="flex gap-3  mt-1">
-                  <div class="w-25 h-30 bg-green-600  rounded-xl"></div>
-                  <div class="w-25 h-30 bg-green-600  rounded-xl"></div>
-                  <div class="w-25 h-30 bg-green-600  rounded-xl"></div>
+                <p class="text-center">Chakra Elemental Básico</p>
+                <div class="mt-1 flex gap-3 justify-center">  
+                  ${chakra_elemental}
                 </div>
               </li>
               <li>
                 <p class="text-center">Chakra Elemental Avanzado</p>
-                <div class="flex gap-3  mt-1">
-                  <div class="w-25 h-30 bg-green-600  rounded-xl"></div>
-                  <div class="w-25 h-30 bg-green-600  rounded-xl"></div>
-                  <div class="w-25 h-30 bg-green-600  rounded-xl"></div>
+                <div class="mt-1 flex gap-3 justify-center  ">
+                  ${chakra_elemental_avanzado}
                 </div>
               </li>
               <li>
                 <p class="text-center">Yin y Yang del Chakra</p>
-                <div class="flex gap-3  mt-1">
-                  <div class="w-25 h-30 bg-green-600  rounded-xl"></div>
-                  <div class="w-25 h-30 bg-green-600  rounded-xl"></div>
-                  <div class="w-25 h-30 bg-green-600  rounded-xl"></div>
+                <div class="mt-1 flex gap-3 justify-center">
+                  ${chakra_yin_yang}
                 </div>
               </li>
             </ul>
           </section>
-          <section class="flex flex-col items-center gap-3 grow-1 border">
+          <section class="flex flex-col items-center gap-3 grow-1">
             <h3 class="text-center font-bold text-3xl">Familia</h3>
             <ul class="flex flex-col gap-3">
               <li class="">
@@ -131,9 +197,29 @@ const characters = await db.all("SELECT * FROM characters LIMIT 21");
             </ul>
           </section>
         </main>
-      </dialog>
+      </div>
       `;
 
     modal.showModal();
+
+    document.documentElement.classList.add("overflow-hidden");
   });
 </script>
+
+<style>
+  dialog[open] {
+    scale: 1;
+    transition: scale 0.2s ease-in-out;
+    @starting-style {
+      scale: 0;
+    }
+  }
+
+  dialog {
+    display: block;
+    scale: 0;
+    transition:
+      scale 0.1s ease-in-out,
+      display 0.1s allow-discrete;
+  }
+</style>

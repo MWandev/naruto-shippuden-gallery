@@ -12,18 +12,30 @@ interface Props {
   naturalezaTipo: string;
   clasificacion: string;
   familia: string;
-  openModal: (character: any) => void;
 }
 
 const character = Astro.props;
-const { id, name, imagen, sexo, edad, ocupacion, clan, debut, estado, naturalezaTipo, clasificacion, familia } = character;
+const {
+  id,
+  name,
+  imagen,
+  sexo,
+  edad,
+  ocupacion,
+  clan,
+  debut,
+  estado,
+  naturalezaTipo,
+  clasificacion,
+  familia,
+} = character;
 ---
 
 <article
   class="relative max-w-96 min-h-72 bg-zinc-900 rounded-2xl cursor-pointer overflow-hidden hover:scale-105 transition-transform duration-300"
   data-character={JSON.stringify(character)}
 >
-  <img class="w-full aspect-4/3" src={imagen} alt={name} />
+  <img class="w-full aspect-4/3 object-cover" src={imagen} alt={name} />
   <span
     class="absolute right-2 top-2 bg-zinc-900 text-zinc-300 rounded-full px-2 py-1 text-xs font-bold select-none"
     >{estado}</span
@@ -41,11 +53,7 @@ const { id, name, imagen, sexo, edad, ocupacion, clan, debut, estado, naturaleza
         <span class="text-zinc-400">sex </span><span
           class:list={[
             "font-semibold",
-            sexo === "Masculino"
-              ? "text-blue-400"
-              : sexo === "Femenino"
-                ? "text-pink-400"
-                : "text-zinc-300",
+            sexo === "Masculino" ? "text-blue-500" : "text-pink-500",
           ]}>{sexo}</span
         >
       </p>

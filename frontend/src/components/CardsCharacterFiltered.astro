@@ -31,7 +31,7 @@
 
           return `
             <div class="relative max-w-96 min-h-72 bg-zinc-900 rounded-2xl cursor-pointer overflow-hidden hover:scale-105 transition-transform duration-300">
-              <img class="w-full aspect-4/3" src="${character.imagen}" alt="${character.name}" />
+              <img class="w-full aspect-4/3 object-cover" src="${character.imagen}" alt="${character.name}" />
               <span class="absolute right-2 top-2 bg-zinc-900 text-zinc-300 rounded-full px-2 py-1 text-xs font-bold select-none">${character.estado}</span>
               <div class="flex flex-col px-3 pt-2 pb-5">
                 <h2 class="font-segoe font-bold text-zinc-300">${character.name}</h2>

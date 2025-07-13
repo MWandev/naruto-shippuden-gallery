@@ -21,4 +21,4 @@ body {
 
 @utility invert-special {
   filter: invert(1) contrast(100);
-} 
+}
